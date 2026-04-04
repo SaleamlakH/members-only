@@ -1,4 +1,4 @@
-import pool from './pool';
+import pool from '../pool';
 
 // account creation inserts username, email, and password to users table
 const createUser = async (username: string, email: string, password: string) => {

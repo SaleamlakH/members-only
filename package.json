@@ -1,0 +1,38 @@
+{
+  "name": "members-only",
+  "version": "1.0.0",
+  "description": "Members Only is group text posting web app where authors and post date is only visible for group members.",
+  "main": "index.js",
+  "scripts": {
+    "prod": "node dist/index.js",
+    "dev": "tsx watch src/index",
+    "build": "tsc -p tsconfig.prod.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaleamlakH/members-only.git"
+  },
+  "keywords": [],
+  "author": "Sale Habtamu <saleamlak.7h@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/express-session": "^1.18.2",
+    "@types/node": "^25.5.2",
+    "@types/passport": "^1.0.17",
+    "@types/passport-local": "^1.0.38",
+    "@types/pg": "^8.20.0",
+    "prettier": "3.8.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  }
+}

@@ -9,6 +9,11 @@ const createUser = async (username: string, email: string, password: string) => 
   ]);
 };
 
+const getUser = async (userId: number) => {
+  const { rows } = await pool.query('SELECT * FROM users WHERE id = $1', [userId]);
+  return rows[0];
+};
+
 // delete account remove a user from users table
 const deleteUser = async (userId: number) => {
   return pool.query('DELETE FROM users WHERE id = $1', [userId]);
@@ -27,4 +32,4 @@ const updatePassword = async (userId: number, password: string) => {
   return pool.query('UPDATE users SET password = $1 WHERE id = $2', [password, userId]);
 };
 
-export { createUser, deleteUser, updateProfileInfo, updatePassword };
+export { createUser, getUser, deleteUser, updateProfileInfo, updatePassword };

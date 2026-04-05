@@ -42,6 +42,15 @@ CREATE INDEX IF NOT EXISTS idx_group_members_user ON group_members(user_id);
 CREATE INDEX IF NOT EXISTS idx_group_members_group ON group_members(group_id);
 `;
 
+const groupMessagesSql = `
+CREATE TABLE IF NOT EXISTS group_messages (
+group_id INT NOT NULL REFERENCES groups(id) ON DELETE CASCADE,
+message_id INT NOT NULL REFERENCES messages(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_group_messages_group ON group_messages(group_id);
+`;
+
 const groupAdmins = `
 CREATE TABLE IF NOT EXISTS group_admins (
 user_id INT NOT NULL REFERENCES users(id),
@@ -70,6 +79,9 @@ async function main() {
 
     console.log('creating group_members table');
     await client.query(groupMembersSql);
+
+    console.log('creating group_messages table');
+    await client.query(groupMessagesSql);
 
     console.log('creating group_admins table');
     await client.query(groupAdmins);

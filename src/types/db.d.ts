@@ -10,6 +10,7 @@ export interface Groups {
   id: number;
   name: string;
   ownerId: number;
+  about?: string;
   createdAt: Date;
 }
 

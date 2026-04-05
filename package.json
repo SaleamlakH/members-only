@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prod": "node dist/index.js",
-    "dev": "tsx watch src/index",
+    "dev": "tsx watch --env-file=.env src/index",
     "build": "tsc -p tsconfig.prod.json"
   },
   "repository": {

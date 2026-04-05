@@ -26,3 +26,8 @@ export interface UserGroupRelation {
   userId: number;
   groupId: number;
 }
+
+export interface MessageGroupRelation {
+  groupId: number;
+  messageId: number;
+}

@@ -94,6 +94,9 @@ Follows MVC architecture:
 - **group_members**
   - user_id
   - group_id
+- **group_messages**
+  - group_id
+  - message_id
 - **group_admins**
   - user_id
   - group_id

@@ -14,7 +14,7 @@ const createMessage = async ({ title, content, authorId }: MessageCreate) => {
   ]);
 };
 
-const getMessage = async (id: Messages['id']) => {
+const getMessage = async (id: Messages['id']): Promise<Messages> => {
   const { rows } = await pool.query(`SELECT * FROM ${table} WHERE id = $1;`, [id]);
   return rows[0];
 };

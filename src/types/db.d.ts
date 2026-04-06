@@ -6,6 +6,11 @@ export interface User {
   createdAt: Date;
 }
 
+export type SafeUser = Omit<User, 'password'>;
+export type UserCreate = Pick<User, 'username' | 'email' | 'password'>;
+export type UserProfileUpdate = Pick<User, 'id' | 'username' | 'email'>;
+export type UserPasswordUpdate = Pick<User, 'id' | 'password'>;
+
 export interface Groups {
   id: number;
   name: string;

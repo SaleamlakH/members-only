@@ -1,17 +1,17 @@
 import pool from '../pool';
-import type { User } from '@/types/db';
-
-type UserCreate = Pick<User, 'username' | 'email' | 'password'>;
-type UserProfileUpdate = Pick<User, 'id' | 'username' | 'email'>;
-type UserPasswordUpdate = Pick<User, 'id' | 'password'>;
+import type { SafeUser, User, UserCreate, UserPasswordUpdate, UserProfileUpdate } from '@/types/db';
 
 // account creation inserts username, email, and password to users table
-const createUser = async ({ username, email, password }: UserCreate) => {
-  return pool.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3);', [
-    username,
-    email,
-    password,
-  ]);
+const createUser = async ({ username, email, password }: UserCreate): Promise<SafeUser> => {
+  const { rows } = await pool.query(
+    `
+    INSERT INTO users (username, email, password)
+    VALUES ($1, $2, $3) 
+    RETURNING id, username, email, createdAt;`,
+    [username, email, password],
+  );
+
+  return rows[0];
 };
 
 const getUserById = async (id: User['id']): Promise<User | undefined> => {
@@ -35,12 +35,16 @@ const deleteUser = async (id: User['id']) => {
 };
 
 // update user
-const updateProfileInfo = async ({ id, username, email }: UserProfileUpdate) => {
-  return pool.query('UPDATE users SET username = $1, email = $2 WHERE id = $3;', [
-    username,
-    email,
-    id,
-  ]);
+const updateProfileInfo = async ({ id, username, email }: UserProfileUpdate): Promise<SafeUser> => {
+  const { rows } = await pool.query(
+    `UPDATE users 
+     SET username = $1, email = $2 
+     WHERE id = $3 
+     RETURNING id, username, email, createdAt;`,
+    [username, email, id],
+  );
+
+  return rows[0];
 };
 
 const updatePassword = async ({ id, password }: UserPasswordUpdate) => {

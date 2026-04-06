@@ -7,7 +7,7 @@ const createUser = async ({ username, email, password }: UserCreate): Promise<Sa
     `
     INSERT INTO users (username, email, password)
     VALUES ($1, $2, $3) 
-    RETURNING id, username, email, createdAt;`,
+    RETURNING id, username, email, created_at;`,
     [username, email, password],
   );
 
@@ -25,7 +25,7 @@ const getUserByEmail = async (email: User['email']): Promise<User | undefined> =
 };
 
 const getUserByUsername = async (username: User['username']): Promise<User | undefined> => {
-  const { rows } = await pool.query('SELECT * FROM users WHERE username = $1;', [[username]]);
+  const { rows } = await pool.query('SELECT * FROM users WHERE username = $1;', [username]);
   return rows[0];
 };
 

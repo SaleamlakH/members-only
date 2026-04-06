@@ -14,17 +14,17 @@ const createUser = async ({ username, email, password }: UserCreate) => {
   ]);
 };
 
-const getUserById = async (id: User['id']): Promise<User> => {
+const getUserById = async (id: User['id']): Promise<User | undefined> => {
   const { rows } = await pool.query('SELECT * FROM users WHERE id = $1;', [id]);
   return rows[0];
 };
 
-const getUserByEmail = async (email: User['email']): Promise<User> => {
+const getUserByEmail = async (email: User['email']): Promise<User | undefined> => {
   const { rows } = await pool.query('SELECT * FROM users WHERE email = $1;', [email]);
   return rows[0];
 };
 
-const getUserByUsername = async (username: User['username']): Promise<User> => {
+const getUserByUsername = async (username: User['username']): Promise<User | undefined> => {
   const { rows } = await pool.query('SELECT * FROM users WHERE username = $1;', [[username]]);
   return rows[0];
 };

@@ -8,7 +8,7 @@ const createGroup = async ({ name, ownerId, about }: GroupCreate) => {
   return pool.query('INSERT INTO groups (name, owner_id) VALUES ($1, $2);', [name, ownerId, about]);
 };
 
-const getGroup = async (id: Groups['id']): Promise<Groups> => {
+const getGroup = async (id: Groups['id']): Promise<Groups | undefined> => {
   const { rows } = await pool.query('SELECT * FROM groups WHERE id = $1;', [id]);
   return rows[0];
 };

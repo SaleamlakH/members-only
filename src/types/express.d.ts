@@ -1,7 +1,7 @@
-import DB from './db';
+import { SafeUser } from './db';
 
 declare global {
   namespace Express {
-    interface User extends DB.User {}
+    interface User extends SafeUser {}
   }
 }

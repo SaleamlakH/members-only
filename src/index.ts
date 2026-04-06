@@ -5,6 +5,7 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcryptjs';
 import * as db from '@/models/db-queries';
+import signupRouter from './routes/signupRoute';
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.set('views', path.join(process.cwd(), 'views'));
 app.set('view engine', 'ejs');
 
 // parse data and set request body
+app.use(express.json()); // will be remove when view are ready
 app.use(express.urlencoded({ extended: true }));
 
 // register authentication middlewares
@@ -56,6 +58,9 @@ passport.deserializeUser(async (id: number, done) => {
     done(error);
   }
 });
+
+// routes
+app.use('/signup', signupRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (err) => {

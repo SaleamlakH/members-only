@@ -43,6 +43,20 @@ passport.use(
   }),
 );
 
+// serialize and deserialize authenticated user
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id: number, done) => {
+  try {
+    const user = await db.users.getUserById(id);
+    done(null, user);
+  } catch (error) {
+    done(error);
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (err) => {
   if (err) {

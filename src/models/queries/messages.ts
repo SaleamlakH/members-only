@@ -3,12 +3,16 @@ import type { MessageCreate, Messages, MessageUpdate } from '@/types/db';
 
 const table = 'messages';
 
-const createMessage = async ({ title, content, authorId }: MessageCreate) => {
-  return pool.query(`INSERT INTO ${table} (title, content, author_id) VALUES ($1, $2, $3);`, [
-    title,
-    content,
-    authorId,
-  ]);
+const createMessage = async ({ title, content, authorId }: MessageCreate): Promise<Messages> => {
+  const { rows } = await pool.query(
+    `
+    INSERT INTO ${table} (title, content, author_id) 
+    VALUES ($1, $2, $3)
+    RETURNING *;`,
+    [title, content, authorId],
+  );
+
+  return rows[0];
 };
 
 const getMessage = async (id: Messages['id']): Promise<Messages | undefined> => {

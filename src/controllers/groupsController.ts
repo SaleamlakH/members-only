@@ -46,4 +46,26 @@ const groupsCreatePost = [
   },
 ];
 
-export { groupsCreatePost };
+const groupGet = async (req: Request, res: Response, next: NextFunction) => {
+  const { groupId } = req.params;
+
+  try {
+    const group = await db.groups.getGroupById(Number(groupId));
+
+    const isMember = req.user
+      ? (await db.groupMembers.isMember({ userId: req.user.id, groupId: Number(groupId) })) === 1
+      : false;
+
+    const messages = isMember
+      ? db.groupMessages.getGroupMessagesWithAuthor(Number(groupId))
+      : db.groupMessages.getGroupMessages(Number(groupId));
+
+    // render group page
+    res.status(200).json({ group, messages });
+    // res.status(200).render('group', { group, messages});
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { groupsCreatePost, groupGet };

@@ -4,10 +4,11 @@ import * as groupsController from '@/controllers/groupsController';
 // /
 // /create
 // /:id
-// /:about
+// /about
 
 const groupsRouter = Router();
 
 groupsRouter.post('/create', ...groupsController.groupsCreatePost);
+groupsRouter.get('/:groupId', groupsController.groupGet);
 
 export default groupsRouter;

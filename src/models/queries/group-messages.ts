@@ -1,6 +1,14 @@
 import pool from '../pool';
 import type { GroupMessageWithAuthor, MessageGroupRelation, Messages } from '@/types/db';
 
+// store group_id and message_id into group_messages
+const addGroupAndMessageIds = async ({ groupId, messageId }: MessageGroupRelation) => {
+  return pool.query('INSERT INTO group_messages (group_id, message_id) VALUES ($1, $2);', [
+    groupId,
+    messageId,
+  ]);
+};
+
 // filter all messages of a group
 const getGroupMessages = async (groupId: MessageGroupRelation['groupId']): Promise<Messages[]> => {
   const { rows } = await pool.query(
@@ -27,4 +35,4 @@ const getGroupMessagesWithAuthor = async (
   return rows;
 };
 
-export { getGroupMessages, getGroupMessagesWithAuthor };
+export { addGroupAndMessageIds, getGroupMessages, getGroupMessagesWithAuthor };

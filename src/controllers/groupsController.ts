@@ -10,7 +10,7 @@ const isGroupNameTaken = async (name: string) => {
   }
 };
 
-const validator = [
+const createGroupValidator = [
   body('name')
     .trim()
     .notEmpty()
@@ -26,7 +26,7 @@ const validator = [
 ];
 
 const groupsCreatePost = [
-  validator,
+  createGroupValidator,
   async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -43,6 +43,51 @@ const groupsCreatePost = [
     // redirect
     res.status(200).json({ name, about });
     //res.status(200).render('group', { name, about });
+  },
+];
+
+const messagePostValidator = [
+  body('title')
+    .trim()
+    .notEmpty()
+    .withMessage('Title is required')
+    .isLength({ max: 255 })
+    .withMessage('Title must be lower than 255 characters'),
+  body('content')
+    .trim()
+    .notEmpty()
+    .withMessage('Content is required')
+    .isLength({ max: 255 })
+    .withMessage('Content must be lower than 255 characters'),
+];
+
+const groupsMessagePost = [
+  messagePostValidator,
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { groupId } = req.params;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const validationErrors = mapValidationErrors(errors);
+
+      // render group page with filled post form
+      res.status(400).json({ validationErrors });
+    }
+
+    try {
+      // insert into database
+      const { title, content } = matchedData(req);
+      await db.transaction.createGroupMessage({
+        title,
+        content,
+        authorId: req.user!.id,
+        groupId: +groupId!,
+      });
+
+      // redirect
+      res.redirect(`/groups/${groupId}`);
+    } catch (error) {
+      next(error);
+    }
   },
 ];
 
@@ -68,4 +113,4 @@ const groupGet = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { groupsCreatePost, groupGet };
+export { groupsCreatePost, groupsMessagePost, groupGet };

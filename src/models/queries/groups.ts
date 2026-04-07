@@ -5,7 +5,11 @@ type GroupCreate = Pick<Groups, 'name' | 'ownerId' | 'about'>;
 type GroupUpdate = Pick<Groups, 'id' | 'name' | 'about'>;
 
 const createGroup = async ({ name, ownerId, about }: GroupCreate) => {
-  return pool.query('INSERT INTO groups (name, owner_id) VALUES ($1, $2);', [name, ownerId, about]);
+  return pool.query('INSERT INTO groups (name, owner_id, about) VALUES ($1, $2, $3);', [
+    name,
+    ownerId,
+    about,
+  ]);
 };
 
 const getGroup = async (id: Groups['id']): Promise<Groups | undefined> => {

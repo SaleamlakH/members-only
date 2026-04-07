@@ -27,6 +27,9 @@ export interface Messages {
   authorId: number;
 }
 
+export type MessageCreate = Pick<Messages, 'title' | 'content' | 'authorId'>;
+export type MessageUpdate = Pick<Messages, 'id' | 'title' | 'content'>;
+
 export interface UserGroupRelation {
   userId: number;
   groupId: number;

@@ -1,12 +1,16 @@
 import pool from '../pool';
 import type { GroupCreate, Groups, GroupUpdate } from '@/types/db';
 
-const createGroup = async ({ name, ownerId, about }: GroupCreate) => {
-  return pool.query('INSERT INTO groups (name, owner_id, about) VALUES ($1, $2, $3);', [
-    name,
-    ownerId,
-    about,
-  ]);
+const createGroup = async ({ name, ownerId, about }: GroupCreate): Promise<Groups> => {
+  const { rows } = await pool.query(
+    `
+    INSERT INTO groups (name, owner_id, about) 
+    VALUES ($1, $2, $3)
+    RETURNING *;`,
+    [name, ownerId, about],
+  );
+
+  return rows[0];
 };
 
 const getGroupById = async (id: Groups['id']): Promise<Groups | undefined> => {

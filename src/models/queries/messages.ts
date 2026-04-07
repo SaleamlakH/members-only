@@ -7,7 +7,7 @@ type MessageCreate = Pick<Messages, 'title' | 'content' | 'authorId'>;
 type MessageUpdate = Pick<Messages, 'id' | 'title' | 'content'>;
 
 const createMessage = async ({ title, content, authorId }: MessageCreate) => {
-  return pool.query(`INSERT INTO ${table} (title, content, author_id) VALUES ($1, $2, $2);`, [
+  return pool.query(`INSERT INTO ${table} (title, content, author_id) VALUES ($1, $2, $3);`, [
     title,
     content,
     authorId,

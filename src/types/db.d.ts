@@ -19,6 +19,9 @@ export interface Groups {
   createdAt: Date;
 }
 
+export type GroupCreate = Pick<Groups, 'name' | 'ownerId' | 'about'>;
+export type GroupUpdate = Pick<Groups, 'id' | 'name' | 'about'>;
+
 export interface Messages {
   id: number;
   title: string;

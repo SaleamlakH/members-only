@@ -1,8 +1,5 @@
 import pool from '../pool';
-import type { Groups } from '@/types/db';
-
-type GroupCreate = Pick<Groups, 'name' | 'ownerId' | 'about'>;
-type GroupUpdate = Pick<Groups, 'id' | 'name' | 'about'>;
+import type { GroupCreate, Groups, GroupUpdate } from '@/types/db';
 
 const createGroup = async ({ name, ownerId, about }: GroupCreate) => {
   return pool.query('INSERT INTO groups (name, owner_id, about) VALUES ($1, $2, $3);', [

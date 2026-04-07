@@ -6,6 +6,7 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcryptjs';
 import * as db from '@/models/db-queries';
 import signupRouter from './routes/signupRoute';
+import loginRouter from './routes/loginRoute';
 
 const app = express();
 
@@ -61,6 +62,8 @@ passport.deserializeUser(async (id: number, done) => {
 
 // routes
 app.use('/signup', signupRouter);
+
+app.use('/login', loginRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (err) => {

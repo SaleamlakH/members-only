@@ -12,7 +12,7 @@ const createGroup = async ({ name, ownerId, about }: GroupCreate) => {
   ]);
 };
 
-const getGroup = async (id: Groups['id']): Promise<Groups | undefined> => {
+const getGroupById = async (id: Groups['id']): Promise<Groups | undefined> => {
   const { rows } = await pool.query('SELECT * FROM groups WHERE id = $1;', [id]);
   return rows[0];
 };
@@ -25,4 +25,4 @@ const deleteGroup = async (id: Groups['id']) => {
   return pool.query('DELETE FROM groups WHERE id = $1;', [id]);
 };
 
-export { createGroup, getGroup, updateGroup, deleteGroup };
+export { createGroup, getGroupById, updateGroup, deleteGroup };

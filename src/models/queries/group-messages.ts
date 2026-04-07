@@ -1,9 +1,14 @@
+import type { PoolClient } from 'pg';
 import pool from '../pool';
 import type { GroupMessageWithAuthor, MessageGroupRelation, Messages } from '@/types/db';
 
 // store group_id and message_id into group_messages
-const addGroupAndMessageIds = async ({ groupId, messageId }: MessageGroupRelation) => {
-  return pool.query('INSERT INTO group_messages (group_id, message_id) VALUES ($1, $2);', [
+const addGroupAndMessageIds = async (
+  { groupId, messageId }: MessageGroupRelation,
+  client?: PoolClient,
+) => {
+  const dbClient = client || pool;
+  return dbClient.query('INSERT INTO group_messages (group_id, message_id) VALUES ($1, $2);', [
     groupId,
     messageId,
   ]);

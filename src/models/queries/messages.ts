@@ -1,10 +1,15 @@
+import type { PoolClient } from 'pg';
 import pool from '../pool';
 import type { MessageCreate, Messages, MessageUpdate } from '@/types/db';
 
 const table = 'messages';
 
-const createMessage = async ({ title, content, authorId }: MessageCreate): Promise<Messages> => {
-  const { rows } = await pool.query(
+const createMessage = async (
+  { title, content, authorId }: MessageCreate,
+  client?: PoolClient,
+): Promise<Messages> => {
+  const dbClient = client || pool;
+  const { rows } = await dbClient.query(
     `
     INSERT INTO ${table} (title, content, author_id) 
     VALUES ($1, $2, $3)

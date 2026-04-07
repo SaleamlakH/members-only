@@ -35,11 +35,23 @@ const createGroupMessage = async ({
   authorId,
   groupId,
 }: MessageGroupTransaction) => {
-  // store message in messages table
-  const message = await db.messages.createMessage({ title, content, authorId });
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN;'); // start transaction
 
-  // store groupId and messageId in group_messages table
-  return db.groupMessages.addGroupAndMessageIds({ groupId, messageId: message.id });
+    // store message in messages table
+    const message = await db.messages.createMessage({ title, content, authorId }, client);
+
+    // store groupId and messageId in group_messages table
+    await db.groupMessages.addGroupAndMessageIds({ groupId, messageId: message.id }, client);
+
+    await client.query('COMMIT;');
+  } catch (error) {
+    await client.query('ROLLBACK;');
+    throw error;
+  } finally {
+    client.release();
+  }
 };
 
 export { createGroupMessage, createGroup };

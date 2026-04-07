@@ -26,10 +26,17 @@ This is a full-stack Node.js application built using the MVC design pattern.
 - TypeScript
 - Node.js
 - Express.js
+- Express Validator
 - Passport.js for authentication
 - EJS for templating
 - PostgreSQL for database
 - CSS3
+
+## Implementation
+
+- Server-side validation for forms (login, signup, group creation, etc.).
+- Parameterized queries to prevent SQL injection attacks.
+- Transactions to ensure multiple related database operations are committed only if all succeed.
 
 ## Installation
 

@@ -1,7 +1,7 @@
 import type { UserGroupRelation } from '@/types/db';
 import pool from '../pool';
 
-const table = `group_messages`;
+const table = `group_members`;
 
 const addMember = async ({ userId, groupId }: UserGroupRelation) => {
   return pool.query(`INSERT INTO ${table} (user_id, group_id) VALUES ($1, $2);`, [userId, groupId]);

@@ -3,6 +3,7 @@ import { body, validationResult, matchedData, type CustomValidator } from 'expre
 import bcrypt from 'bcryptjs';
 import * as db from '@/models/db-queries';
 import type { UserCreate } from '@/types/db';
+import mapValidationErrors from '@/utils/mapValidationErrors';
 
 const isUsernameTaken: CustomValidator = async (username) => {
   const user = await db.users.getUserByUsername(username);
@@ -40,8 +41,13 @@ const userCreatePost = [
   async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.locals['errors'] = errors.array();
-      return next();
+      // map errors and send back the form
+      const validationErrors = mapValidationErrors(errors);
+
+      // comment out and remove json response when the view is ready
+      res.status(400).json({ data: req.body, errors: validationErrors });
+      // res.status(400).render('login-form', { data: req.body, errors: validationErrors });
+      return;
     }
 
     // hash password

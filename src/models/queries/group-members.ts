@@ -17,7 +17,7 @@ const deleteMembers = async ({ userId, groupId }: UserGroupRelation) => {
 // check if a user is a member
 const isMember = async ({ userId, groupId }: UserGroupRelation) => {
   const { rowCount } = await pool.query(
-    `SELECT 1 FROM ${table} WHERE user_id = $1 AND group_id = $2 LIMIT 1;`,
+    `SELECT * FROM ${table} WHERE user_id = $1 AND group_id = $2 LIMIT 1;`,
     [userId, groupId],
   );
 

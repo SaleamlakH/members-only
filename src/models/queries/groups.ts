@@ -1,8 +1,13 @@
+import type { PoolClient } from 'pg';
 import pool from '../pool';
 import type { GroupCreate, Groups, GroupUpdate } from '@/types/db';
 
-const createGroup = async ({ name, ownerId, about }: GroupCreate): Promise<Groups> => {
-  const { rows } = await pool.query(
+const createGroup = async (
+  { name, ownerId, about }: GroupCreate,
+  client?: PoolClient,
+): Promise<Groups> => {
+  const dbClient = client || pool;
+  const { rows } = await dbClient.query(
     `
     INSERT INTO groups (name, owner_id, about) 
     VALUES ($1, $2, $3)

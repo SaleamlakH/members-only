@@ -1,10 +1,15 @@
 import type { UserGroupRelation } from '@/types/db';
 import pool from '../pool';
+import type { PoolClient } from 'pg';
 
 const table = `group_members`;
 
-const addMember = async ({ userId, groupId }: UserGroupRelation) => {
-  return pool.query(`INSERT INTO ${table} (user_id, group_id) VALUES ($1, $2);`, [userId, groupId]);
+const addMember = async ({ userId, groupId }: UserGroupRelation, client?: PoolClient) => {
+  const dbClient = client || pool;
+  return dbClient.query(`INSERT INTO ${table} (user_id, group_id) VALUES ($1, $2);`, [
+    userId,
+    groupId,
+  ]);
 };
 
 const deleteMembers = async ({ userId, groupId }: UserGroupRelation) => {

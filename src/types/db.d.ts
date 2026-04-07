@@ -36,3 +36,7 @@ export interface MessageGroupRelation {
   groupId: number;
   messageId: number;
 }
+
+export interface GroupMessageWithAuthor extends Messages {
+  author: Pick<User, 'username'>;
+}

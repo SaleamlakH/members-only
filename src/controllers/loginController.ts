@@ -1,6 +1,8 @@
 import mapValidationErrors from '@/utils/mapValidationErrors';
 import type { NextFunction, Request, Response } from 'express';
 import { body, matchedData, validationResult } from 'express-validator';
+import passport from 'passport';
+import type { IVerifyOptions } from 'passport-local';
 
 const validator = [
   body('email')
@@ -30,12 +32,32 @@ const validationErrorHandler = (req: Request, res: Response, next: NextFunction)
   next();
 };
 
-const loginPost = [
-  validator,
-  validationErrorHandler,
-  (req: Request, res: Response) => {
-    res.json(req.body);
-  },
-];
+const authenticateLogin = async (req: Request, res: Response, next: NextFunction) => {
+  await passport.authenticate(
+    'local',
+    (err: any, user: false | Express.User | undefined, info: IVerifyOptions) => {
+      if (err) throw err;
+
+      if (user) {
+        // redirect
+        // log in and redirect
+        return req.login(user, (err) => {
+          if (err) throw err;
+
+          // must be replaced with render after we have the view
+          res.status(200).json({ user, msg: 'successfully logged in' });
+        });
+      }
+
+      if (info.message) {
+        res.status(401).json({ data: req.body, authErrorMsg: info.message });
+        // embed error into the login form
+        // res.status(401).render('login-form', {data: req.body, authError: info.message })
+      }
+    },
+  )(req, res, next);
+};
+
+const loginPost = [validator, validationErrorHandler, authenticateLogin];
 
 export default loginPost;

@@ -102,8 +102,8 @@ const groupGet = async (req: Request, res: Response, next: NextFunction) => {
       : false;
 
     const messages = isMember
-      ? db.groupMessages.getGroupMessagesWithAuthor(Number(groupId))
-      : db.groupMessages.getGroupMessages(Number(groupId));
+      ? await db.groupMessages.getGroupMessagesWithAuthor(Number(groupId))
+      : await db.groupMessages.getGroupMessages(Number(groupId));
 
     // render group page
     res.status(200).json({ group, messages });

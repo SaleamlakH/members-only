@@ -35,14 +35,15 @@ const groupsCreatePost = [
       // embed errors to the group creating form
       res.status(400).json(validationErrors);
       // res.status(400).render('group-create-from', {errors: validationErrors})
+      return;
     }
 
     const { name, about } = matchedData(req);
-    await db.groups.createGroup({ name, ownerId: req.user!.id, about });
+    const group = await db.transaction.createGroup({ name, ownerId: req.user!.id, about });
 
     // redirect
-    res.status(200).json({ name, about });
-    //res.status(200).render('group', { name, about });
+    res.status(200).json({ group });
+    // res.redirect(`/groups/${group.id}`);
   },
 ];
 

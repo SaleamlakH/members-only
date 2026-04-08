@@ -34,7 +34,7 @@ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 const groupMembersSql = `
 CREATE TABLE IF NOT EXISTS group_members (
-user_id INT NOT NULL REFERENCES users(id),
+user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 group_id INT NOT NULL REFERENCES groups(id) ON DELETE CASCADE
 );
 
@@ -45,7 +45,7 @@ CREATE INDEX IF NOT EXISTS idx_group_members_group ON group_members(group_id);
 const groupMessagesSql = `
 CREATE TABLE IF NOT EXISTS group_messages (
 group_id INT NOT NULL REFERENCES groups(id) ON DELETE CASCADE,
-message_id INT NOT NULL REFERENCES messages(id)
+message_id INT NOT NULL REFERENCES messages(id) ON DELETE CASCADE
 );
 
 CREATE INDEX IF NOT EXISTS idx_group_messages_group ON group_messages(group_id);
@@ -53,7 +53,7 @@ CREATE INDEX IF NOT EXISTS idx_group_messages_group ON group_messages(group_id);
 
 const groupAdmins = `
 CREATE TABLE IF NOT EXISTS group_admins (
-user_id INT NOT NULL REFERENCES users(id),
+user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 group_id INT NOT NULL REFERENCES groups(id) ON DELETE CASCADE
 );
 `;

@@ -37,7 +37,7 @@ const usersProfileUpdate = [
       await db.users.updateProfileInfo({ id: req.user!.id, username, email });
 
       // redirect to profile settings
-      res.redirect(`/users/${req.user!.id}/setting`);
+      res.redirect('/users/settings');
     } catch (error) {
       next(error);
     }
@@ -64,7 +64,7 @@ const usersPasswordChange = [
       await db.users.updatePassword({ id: req.user!.id, password: hashedPassword });
 
       // redirect with notification
-      res.redirect(`users/${req.user!.id}/setting`);
+      res.redirect('users/settings');
     } catch (error) {
       next(error);
     }

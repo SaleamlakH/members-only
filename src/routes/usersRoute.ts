@@ -4,15 +4,15 @@ import * as userController from '@/controllers/usersController';
 const usersRouter = Router();
 
 // get user page including posts
-usersRouter.get('/:userId', userController.usersGet);
+usersRouter.get('/profile', userController.usersGet);
 
 // update user profile
-usersRouter.put('/:userId/setting/profile', ...userController.usersProfileUpdate);
+usersRouter.put('/settings/profile', ...userController.usersProfileUpdate);
 
 // change password
-usersRouter.put('/:userId/setting/password', ...userController.usersPasswordChange);
+usersRouter.put('/settings/password', ...userController.usersPasswordChange);
 
 // delete account
-// usersRouter.delete('/:userId');
+// usersRouter.delete('/settings');
 
 export default usersRouter;

@@ -20,8 +20,15 @@ const createMessage = async (
   return rows[0];
 };
 
-const getMessage = async (id: Messages['id']): Promise<Messages | undefined> => {
+const getMessageById = async (id: Messages['id']): Promise<Messages | undefined> => {
   const { rows } = await pool.query(`SELECT * FROM ${table} WHERE id = $1;`, [id]);
+  return rows[0];
+};
+
+const getMessageByAuthor = async (
+  authorId: Messages['authorId'],
+): Promise<Messages | undefined> => {
+  const { rows } = await pool.query(`SELECT * FROM ${table} WHERE author_id = $1;`, [authorId]);
   return rows[0];
 };
 
@@ -37,4 +44,4 @@ const deleteMessage = async (id: Messages['id']) => {
   return pool.query(`DELETE FROM ${table} WHERE id = $1;`, [id]);
 };
 
-export { createMessage, getMessage, updateMessage, deleteMessage };
+export { createMessage, getMessageById, getMessageByAuthor, updateMessage, deleteMessage };

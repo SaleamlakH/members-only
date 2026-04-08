@@ -33,7 +33,7 @@ const getGroupMessagesWithAuthor = async (
     FROM messages
     JOIN group_messages AS gm ON messages.id = gm.message_id
     JOIN users ON messages.author_id = users.id
-    WHERE gm.group_id = 1;
+    WHERE gm.group_id = $1;
     `,
     [groupId],
   );

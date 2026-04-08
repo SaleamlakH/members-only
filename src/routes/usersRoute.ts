@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import * as userController from '@/controllers/usersController';
 
 // users/:id
 // users/:id/settings
@@ -6,15 +7,15 @@ import { Router } from 'express';
 const usersRouter = Router();
 
 // get user profile
-usersRouter.get('/:userId');
+// usersRouter.get('/:userId');
 
 // update user profile
-usersRouter.put('/:userId/setting/profile');
+usersRouter.put('/:userId/setting/profile', ...userController.usersProfileUpdate);
 
 // change password
-usersRouter.put('/:userId/setting/password');
+// usersRouter.put('/:userId/setting/password');
 
 // delete account
-usersRouter.delete('/:userId');
+// usersRouter.delete('/:userId');
 
 export default usersRouter;

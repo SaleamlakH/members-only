@@ -47,13 +47,19 @@ git clone https://github.com/SaleamlakH/members-only.git
 cd members-only
 ```
 
-2. install all dependencies:
+2. create tables
+
+```bash
+npm run create-tables
+```
+
+3. install all dependencies:
 
 ```bash
 npm install
 ```
 
-3. setup environment variables:
+4. setup environment variables:
 
 ```bash
 NODE_ENV=(dev | prod)
@@ -61,7 +67,7 @@ DATABASE_URL=your_database_url
 SESSION_SECRET=your_secret_key
 ```
 
-4. Run dev server:
+5. Run dev server:
 
 ```bash
 npm run dev

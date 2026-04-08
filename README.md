@@ -95,35 +95,23 @@ Creating groups and posting messages require authentication.
 
 ## Database Schema
 
+This project uses PostgreSQL for data storage. All tables are created and initialized using the `populate.ts` script, which contains the SQL queries to create the tables with their respective constraints (primary keys, foreign keys, and cascading rules).
+
+The database consists of the following tables:
+
 ### Tables
 
-- **users**
-  - id
-  - username
-  - email
-  - password
-  - created_at
-- **messages**
-  - id
-  - title
-  - content
-  - posted_at
-  - updated_at
-  - author_id
-- **Groups**
-  - id
-  - name
-  - owner_id
-  - created_at
-- **group_members**
-  - user_id
-  - group_id
-- **group_messages**
-  - group_id
-  - message_id
-- **group_admins**
-  - user_id
-  - group_id
+- **users**: stores user accounts
+- **messages**: stores messages posted by users
+- **groups**: stores groups created by users
+- **group_members**: join table connecting users and groups
+- **group_messages**: join table connecting groups and messages
+- **group_admins**: join table for group admin privileges
+
+Refer:
+
+- [schema.md](src/models/schema.md) for full table column list.
+- [populate.ts](src/models/populate.ts) for full column types, constraints, and relationships.
 
 ## Installation Guides
 

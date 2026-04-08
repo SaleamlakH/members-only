@@ -5,6 +5,20 @@ import { passwordUpdateValidator, profileUpdateValidator } from '@/utils/validat
 import * as db from '@/models/db-queries';
 import mapValidationErrors from '@/utils/mapValidationErrors';
 
+// get user page including message  posts
+const usersGet = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await db.users.getUserById(req.user!.id);
+    const messages = await db.messages.getMessageByAuthor(req.user!.id);
+
+    // render user
+    res.status(200).json({ messages, username: user?.username });
+    // res.render('user', { messages, username: user?.username });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const usersProfileUpdate = [
   profileUpdateValidator,
   async (req: Request, res: Response, next: NextFunction) => {
@@ -57,4 +71,4 @@ const usersPasswordChange = [
   },
 ];
 
-export { usersProfileUpdate, usersPasswordChange };
+export { usersGet, usersProfileUpdate, usersPasswordChange };

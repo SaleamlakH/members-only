@@ -1,13 +1,10 @@
 import { Router } from 'express';
 import * as userController from '@/controllers/usersController';
 
-// users/:id
-// users/:id/settings
-
 const usersRouter = Router();
 
-// get user profile
-// usersRouter.get('/:userId');
+// get user page including posts
+usersRouter.get('/:userId', userController.usersGet);
 
 // update user profile
 usersRouter.put('/:userId/setting/profile', ...userController.usersProfileUpdate);

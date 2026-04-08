@@ -1,43 +1,13 @@
 import type { NextFunction, Request, Response } from 'express';
-import { body, validationResult, matchedData, type CustomValidator } from 'express-validator';
+import { validationResult, matchedData } from 'express-validator';
 import bcrypt from 'bcryptjs';
 import * as db from '@/models/db-queries';
 import type { UserCreate } from '@/types/db';
 import mapValidationErrors from '@/utils/mapValidationErrors';
-
-const isUsernameTaken: CustomValidator = async (username) => {
-  const user = await db.users.getUserByUsername(username);
-  if (user) {
-    throw new Error('Username already taken');
-  }
-};
-
-const isEmailExist: CustomValidator = async (email) => {
-  const user = await db.users.getUserByEmail(email);
-  if (user) {
-    throw new Error('Email already exist');
-  }
-};
-
-// validate signup form
-const validator = [
-  body('username')
-    .trim()
-    .escape()
-    .isLength({ min: 3 })
-    .withMessage('Username must be at least 3 characters')
-    .custom(isUsernameTaken),
-
-  body('email').isEmail().withMessage('Invalid email address').custom(isEmailExist),
-
-  body('password')
-    .trim()
-    .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters'),
-];
+import { signUpValidator } from '@/utils/validators';
 
 const userCreatePost = [
-  validator,
+  signUpValidator,
   async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

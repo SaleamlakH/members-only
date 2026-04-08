@@ -6,7 +6,8 @@
   "scripts": {
     "prod": "node dist/index.js",
     "dev": "tsx watch --env-file=.env src/index",
-    "build": "tsc -p tsconfig.prod.json"
+    "build": "tsc -p tsconfig.prod.json",
+    "create-tables": "tsx --env-file=.env src/models/populate"
   },
   "repository": {
     "type": "git",

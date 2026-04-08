@@ -39,8 +39,7 @@ const updateProfileInfo = async ({ id, username, email }: UserProfileUpdate): Pr
   const { rows } = await pool.query(
     `UPDATE users 
      SET username = $1, email = $2 
-     WHERE id = $3 
-     RETURNING id, username, email, createdAt;`,
+     WHERE id = $3;`,
     [username, email, id],
   );
 

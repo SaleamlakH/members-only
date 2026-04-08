@@ -13,7 +13,7 @@ const usersRouter = Router();
 usersRouter.put('/:userId/setting/profile', ...userController.usersProfileUpdate);
 
 // change password
-// usersRouter.put('/:userId/setting/password');
+usersRouter.put('/:userId/setting/password', ...userController.usersPasswordChange);
 
 // delete account
 // usersRouter.delete('/:userId');

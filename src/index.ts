@@ -8,6 +8,7 @@ import * as db from '@/models/db-queries';
 import signupRouter from './routes/signupRoute';
 import loginRouter from './routes/loginRoute';
 import groupsRouter from './routes/groupsRoute';
+import usersRouter from './routes/usersRoute';
 
 const app = express();
 
@@ -70,6 +71,8 @@ app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 
 app.use('/groups', groupsRouter);
+
+app.use('/users', usersRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (err) => {

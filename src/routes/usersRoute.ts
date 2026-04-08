@@ -13,6 +13,6 @@ usersRouter.put('/settings/profile', ...userController.usersProfileUpdate);
 usersRouter.put('/settings/password', ...userController.usersPasswordChange);
 
 // delete account
-// usersRouter.delete('/settings');
+usersRouter.delete('/settings', userController.usersDeleteAccount);
 
 export default usersRouter;

@@ -71,4 +71,21 @@ const usersPasswordChange = [
   },
 ];
 
-export { usersGet, usersProfileUpdate, usersPasswordChange };
+const usersDeleteAccount = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await db.users.deleteUser(req.user!.id);
+
+    // logout and redirect to a home with success notification
+    req.logOut((err) => {
+      if (err) {
+        return next(err);
+      }
+
+      res.redirect('/');
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { usersGet, usersProfileUpdate, usersPasswordChange, usersDeleteAccount };

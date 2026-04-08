@@ -2,6 +2,18 @@
 
 This site is developed for education purpose as part of the [The Odin Project](https://www.theodinproject.com) NodeJS course.
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Implementation details](#implementation-details)
+- [Key Design Decisions](#key-design-decisions)
+- [Project Structure](#project-structure)
+- [Routes (Endpoints)](#routes-endpoints)
+- [Database Schema](#database-schema)
+- [Installation Guides](#installation)
+
 ## Overview
 
 Members Only is a group-based text posting platform where all users can read messages but only members can see the author and posting date.
@@ -21,7 +33,7 @@ This is a full-stack Node.js application built using the MVC design pattern.
   - Edit group "About" section
 - Messages authors can edit or delete their own messages
 
-## Tech Stacks
+## Tech Stack
 
 - TypeScript
 - Node.js
@@ -32,13 +44,88 @@ This is a full-stack Node.js application built using the MVC design pattern.
 - PostgreSQL for database
 - CSS3
 
-## Implementation
+## Implementation details
 
-- Server-side validation for forms (login, signup, group creation, etc.).
-- Parameterized queries to prevent SQL injection attacks.
-- Transactions to ensure multiple related database operations are committed only if all succeed.
+- Server-side form validation using Express Validator.
+- Parameterized queries to prevent SQL injection.
+- Transactions for multi-step database operations.
 
-## Installation
+## Key Design Decisions
+
+- User identity resolved from session instead of passing userId in routes.
+- Role-based permissions (owner, admin, member) control access.
+- Foreign key constraints with ON DELETE CASCADE for referential integrity.
+
+## Project Structure
+
+Follows MVC architecture:
+
+- controllers/ request handling logic
+- models/ — database schema and queries
+- routes/ — route definitions
+- views/ — EJS templates
+
+## Routes (Endpoints)
+
+### Root
+
+- GET / - Render the home page with login and signup views. The views are conditionally displayed on the client using JavaScript.
+
+### Auth
+
+- POST /signup - Create a new account
+- POST /login - Authenticate user
+
+### Users
+
+All user routes require authentication. The user is resolved from the session.
+
+- GET /users/profile - render current user profile page
+- PUT /users/settings/profile - Update profile information
+- PUT /users/settings/password - Update password
+- DELETE /users - Delete current user
+
+### Groups
+
+Creating groups and posting messages require authentication.
+
+- GET /groups/:groupId - View a group
+- POST /groups/create - Create a new group
+- POST /groups/:groupId - Post a message to a group
+
+## Database Schema
+
+### Tables
+
+- **users**
+  - id
+  - username
+  - email
+  - password
+  - created_at
+- **messages**
+  - id
+  - title
+  - content
+  - posted_at
+  - updated_at
+  - author_id
+- **Groups**
+  - id
+  - name
+  - owner_id
+  - created_at
+- **group_members**
+  - user_id
+  - group_id
+- **group_messages**
+  - group_id
+  - message_id
+- **group_admins**
+  - user_id
+  - group_id
+
+## Installation Guides
 
 1. clone the repository:
 
@@ -72,47 +159,6 @@ SESSION_SECRET=your_secret_key
 ```bash
 npm run dev
 ```
-
-## Project Structure
-
-Follows MVC architecture:
-
-- controllers/ — request handling logic
-- models/ — database schema and queries
-- routes/ — route definitions
-- views/ — EJS templates
-
-## Database Schema
-
-### Tables
-
-- **users**
-  - id
-  - username
-  - email
-  - password
-  - created_at
-- **messages**
-  - id
-  - title
-  - content
-  - posted_at
-  - updated_at
-  - author_id
-- **Groups**
-  - id
-  - name
-  - owner_id
-  - created_at
-- **group_members**
-  - user_id
-  - group_id
-- **group_messages**
-  - group_id
-  - message_id
-- **group_admins**
-  - user_id
-  - group_id
 
 ## License
 

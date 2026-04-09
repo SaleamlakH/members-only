@@ -1,0 +1,40 @@
+<nav class="navbar">
+  <div class="left-nav" >
+    <a href="/">
+      <img src="assets/members-only.png" alt="logo" />
+      <span class="logo-text mobile-hidden">Members Only</span>
+    </a>
+  </div>
+
+  <!-- page title -->
+  <div>
+      <% if (locals.group) { %>
+          <h1><%= groupName %></h1>
+      <% } else if (locals.profile) { %>
+          <h1>Profile</h1>
+      <% } else if (locals.setting) { %>
+          <h1>Settings</h1>
+      <% } %>
+  </div>
+
+  <div class="right-nav">
+    <% if (locals.groupName && locals.isMember) { %>
+      <!-- Group links -->
+      <a href="/groups/<%= group.id %>/about">About</a>
+      <a href="/groups/<%= group.id %>/leave">Leave Group</a>
+
+    <% }  else if (locals.user) { %>
+      <!-- logged-in user -->
+      <a href="/users">Profile</a>
+      <a href="/groups">Groups</a>
+      <a href="/groups/create">Create Group</a>
+      <a href="/users/settings">Settings</a>
+      <a href="/logout">Logout</a>
+
+    <% } else if (locals.path === '/') { %>
+      <!-- guest user -->
+      <a class='login-btn' href="/login">Login</a>
+      <a class='signup-btn' href="/signup">Sign Up</a>
+    <% } %>
+  </div>
+</nav>

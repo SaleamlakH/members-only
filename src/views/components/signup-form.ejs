@@ -1,0 +1,41 @@
+<form class="signup-form" action="/signup" method="POST">
+  <h1>Sign Up</h1>
+
+  <div class="rows">
+    <label for="username">Username</label>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      value="<%= locals.data?.username %> "
+      required
+    />
+    <div class="error"><%= locals.errors?.username?.message %></div>
+  </div>
+
+  <div class="rows">
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" value="<%= locals.data?.email %>" required />
+    <div class="error"><%= locals.errors?.email?.message %></div>
+  </div>
+
+  <div class="rows">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      value="<%= locals.data?.password %>"
+      required
+    />
+    <div class="error"><%= locals.errors?.password?.message %></div>
+  </div>
+
+  <div class="rows">
+    <label for="confirm-password">Confirm password</label>
+    <input type="password" name="confirm_password" id="confirm-password" />
+    <div class="error"></div>
+  </div>
+
+  <button>Sign Up</button>
+</form>

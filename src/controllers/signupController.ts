@@ -14,9 +14,10 @@ const userCreatePost = [
       // map errors and send back the form
       const validationErrors = mapValidationErrors(errors);
 
-      // comment out and remove json response when the view is ready
-      res.status(400).json({ data: req.body, errors: validationErrors });
-      // res.status(400).render('login-form', { data: req.body, errors: validationErrors });
+      // embed errors in signup form
+      res
+        .status(400)
+        .render('pages/signup', { title: 'Sign UP', data: req.body, errors: validationErrors });
       return;
     }
 
@@ -36,7 +37,7 @@ const userCreatePost = [
       if (err) throw err;
 
       // must be replaced with render after we have the view
-      res.status(200).json(user);
+      res.redirect('/');
     });
   },
 ];

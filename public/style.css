@@ -1,0 +1,61 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  color: inherit;
+}
+
+body {
+  background-color: hsl(0 0 10);
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-hidden {
+  display: none;
+}
+
+.navbar {
+  color: hsl(0 0 100);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 1em;
+}
+
+.left-nav a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.left-nav .logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.left-nav img {
+  width: 2rem;
+}
+
+.navbar a {
+  text-decoration: none;
+}
+
+.right-nav {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.signup-btn {
+  border: 1px solid hsl(0 0 100);
+  border-radius: 10px;
+  padding: 0.5em;
+}
+
+.signup-btn:hover {
+  background-color: hsl(0 0 20);
+}

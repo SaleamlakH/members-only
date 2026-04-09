@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <base href="/">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <%- include('../components/navbar', {user: true}) %>
+
+    <!-- profile info -->
+    <section class="profile-info signup-form">
+      <h2>Profile information</h2>
+      <form id="profile-update">
+        <div class="rows">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" value="" required>
+        </div>
+
+        <div class="rows">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" value="" required>
+        </div>
+
+        <button>Save</button>
+      </form>
+    </section>
+
+    <!-- password -->
+    <section class="password signup-form">
+      <h2>Change your password</h2>
+      <form id="passowrd-update">
+        <div class="rows">
+          <label for="current-password">Current Password</label>
+          <input type="password" name="current_password" id="current-password" required>
+        </div>
+
+        <div class="rows">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" required>
+        </div>
+
+        <div class="rows">
+          <label for="confirm-password">Password Confirmation</label>
+          <input type="password" name="confirm_password" id="confirm-password" required>
+        </div>
+
+        <button>Save</button>
+      </form>
+    </section>
+
+    <!-- delete account -->
+     <section class="delete-account signup-form">
+      <h2>Danger Zone</h2>
+      <button id="delete-account-btn">Delete account</button>
+     </section>
+  </body>
+</html>

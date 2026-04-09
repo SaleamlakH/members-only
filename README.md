@@ -73,14 +73,17 @@ Follows MVC architecture:
 
 ### Auth
 
+- GET /signup - render signup form
 - POST /signup - Create a new account
+- GET /login - render login form
 - POST /login - Authenticate user
 
 ### Users
 
 All user routes require authentication. The user is resolved from the session.
 
-- GET /users/profile - render current user profile page
+- GET /users/profile - view current user profile
+- GET /users/settings - view user settings
 - PUT /users/settings/profile - Update profile information
 - PUT /users/settings/password - Update password
 - DELETE /users - Delete current user
@@ -89,8 +92,10 @@ All user routes require authentication. The user is resolved from the session.
 
 Creating groups and posting messages require authentication.
 
-- GET /groups/:groupId - View a group
+- GET /groups - view all group lists
+- GET /groups/create - render form to create group
 - POST /groups/create - Create a new group
+- GET /groups/:groupId - View a group
 - POST /groups/:groupId - Post a message to a group
 
 ## Database Schema

@@ -9,12 +9,16 @@ import signupRouter from './routes/signupRoute';
 import loginRouter from './routes/loginRoute';
 import groupsRouter from './routes/groupsRoute';
 import usersRouter from './routes/usersRoute';
+import homeRouter from './routes/homeRoute';
 
 const app = express();
 
 // set view engine
-app.set('views', path.join(process.cwd(), 'views'));
+app.set('views', path.join(import.meta.dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// static file path
+app.use(express.static(path.join(process.cwd(), 'public')));
 
 // parse data and set request body
 app.use(express.json()); // will be remove when view are ready
@@ -73,6 +77,8 @@ app.use('/login', loginRouter);
 app.use('/groups', groupsRouter);
 
 app.use('/users', usersRouter);
+
+app.get('/', homeRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (err) => {

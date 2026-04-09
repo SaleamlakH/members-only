@@ -65,9 +65,9 @@ body {
 .signup-btn:hover {
   background-color: hsl(0 0 20);
 }
-
 /*
-    Sign up form
+    Sign up form style
+    :- Login form has class name sign up
 */
 
 .signup-form {
@@ -103,10 +103,21 @@ body {
   color: hsl(0 100 65);
 }
 
+.auth-error {
+  text-align: center;
+  color: hsl(0 100 65);
+  padding-bottom: 1em;
+}
+
 .signup-form button {
   font-weight: 700;
   border: 1px solid hsl(0 0 100);
   border-radius: 10px;
   padding: 0.5em;
   margin-top: 1em;
+  cursor: pointer;
+}
+
+.signup-form button:hover {
+  background-color: hsl(0 0 25);
 }

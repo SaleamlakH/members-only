@@ -120,11 +120,41 @@ main {
   font-weight: 700;
   border: 1px solid hsl(0 0 100);
   border-radius: 10px;
-  padding: 0.5em;
+  padding: 0.5em 1em;
   margin-top: 1em;
   cursor: pointer;
 }
 
 .signup-form button:hover {
   background-color: hsl(0 0 25);
+}
+
+/*
+
+setting forms
+uses signup style
+
+*/
+
+.profile-info h2,
+.password h2,
+.delete-account h2 {
+  font-size: large;
+  font-weight: 700;
+  margin-bottom: 1em;
+}
+
+.profile-info form,
+.password form {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-info button,
+.password button {
+  align-self: flex-end;
+}
+
+.delete-account {
+  display: block;
 }

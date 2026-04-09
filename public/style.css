@@ -3,6 +3,8 @@
 *::before {
   box-sizing: border-box;
   color: inherit;
+  background-color: inherit;
+  font: inherit;
 }
 
 body {
@@ -15,6 +17,10 @@ body {
 .mobile-hidden {
   display: none;
 }
+
+/* 
+    Navigation bar  
+*/
 
 .navbar {
   color: hsl(0 0 100);
@@ -58,4 +64,49 @@ body {
 
 .signup-btn:hover {
   background-color: hsl(0 0 20);
+}
+
+/*
+    Sign up form
+*/
+
+.signup-form {
+  color: hsl(0 0 89);
+  border: 1px solid hsl(0 0 85 / 0.8);
+  border-radius: 15px;
+  margin: 1em;
+  padding: 1em;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+}
+
+.signup-form h1 {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.signup-form .rows {
+  margin-bottom: 0.5em;
+}
+
+.signup-form input {
+  border: 1px solid hsl(0 0 70 / 0.7);
+  border-radius: 10px;
+  width: 100%;
+  padding: 0.5em;
+  margin: 0.3em 0;
+}
+
+.signup-form .error {
+  color: hsl(0 100 65);
+}
+
+.signup-form button {
+  font-weight: 700;
+  border: 1px solid hsl(0 0 100);
+  border-radius: 10px;
+  padding: 0.5em;
+  margin-top: 1em;
 }

@@ -21,9 +21,9 @@ const validationErrorHandler = (req: Request, res: Response, next: NextFunction)
     // map errors and send back the form
     const validationErrors = mapValidationErrors(errors);
 
-    // comment out and remove json response when the view is ready
-    res.status(400).json({ errors: validationErrors });
-    // res.status(400).render('login-form', { data: req.body, errors: validationErrors });
+    res
+      .status(400)
+      .render('pages/login', { title: 'Login', data: req.body, errors: validationErrors });
     return;
   }
 
@@ -44,15 +44,14 @@ const authenticateLogin = async (req: Request, res: Response, next: NextFunction
         return req.login(user, (err) => {
           if (err) throw err;
 
-          // must be replaced with render after we have the view
-          res.status(200).json({ user, msg: 'successfully logged in' });
+          res.redirect('/');
         });
       }
 
       if (info.message) {
-        res.status(401).json({ data: req.body, authErrorMsg: info.message });
-        // embed error into the login form
-        // res.status(401).render('login-form', {data: req.body, authError: info.message })
+        res
+          .status(401)
+          .render('pages/login', { title: 'Login', data: req.body, authError: info.message });
       }
     },
   )(req, res, next);

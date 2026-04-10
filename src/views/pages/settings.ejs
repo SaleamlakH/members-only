@@ -18,12 +18,12 @@
         <form id="profile-update">
           <div class="rows">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" required>
+            <input type="text" name="username" id="username" value="<%= profile.username %>" required>
             <div class="username error"></div>
           </div>
           <div class="rows">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" required>
+            <input type="email" name="email" id="email" value="<%= profile.email %>" required>
             <div class="email error"></div>
           </div>
           <button>Save</button>

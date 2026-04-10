@@ -17,11 +17,13 @@
         <form id="profile-update">
           <div class="rows">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" value="" required>
+            <input type="text" name="username" id="username" required>
+            <div class="username error"></div>
           </div>
           <div class="rows">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="" required>
+            <input type="email" name="email" id="email" required>
+            <div class="email error"></div>
           </div>
           <button>Save</button>
         </form>
@@ -29,7 +31,7 @@
       <!-- password -->
       <section class="password signup-form">
         <h2>Change your password</h2>
-        <form id="passowrd-update">
+        <form id="password-update">
           <div class="rows">
             <label for="current-password">Current Password</label>
             <input type="password" name="current_password" id="current-password" required>
@@ -37,10 +39,12 @@
           <div class="rows">
             <label for="password">Password</label>
             <input type="password" name="password" id="password" required>
+            <div class="password error"></div>
           </div>
           <div class="rows">
             <label for="confirm-password">Password Confirmation</label>
             <input type="password" name="confirm_password" id="confirm-password" required>
+            <div class="confirm_password error"></div>
           </div>
           <button>Save</button>
         </form>

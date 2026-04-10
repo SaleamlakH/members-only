@@ -45,8 +45,19 @@ const userDataValidators = {
     .trim()
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters'),
+
+  confirmPassword: body('confirm_password')
+    .trim()
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw 'Confirm password must match password';
+      }
+    }),
 };
 
 export const signUpValidator = Object.values(userDataValidators);
 export const profileUpdateValidator = [userDataValidators.username, userDataValidators.email];
-export const passwordUpdateValidator = [userDataValidators.password];
+export const passwordUpdateValidator = [
+  userDataValidators.password,
+  userDataValidators.confirmPassword,
+];

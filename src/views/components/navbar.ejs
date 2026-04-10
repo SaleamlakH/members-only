@@ -18,23 +18,52 @@
   </div>
 
   <div class="right-nav">
-    <% if (locals.groupName && locals.isMember) { %>
-      <!-- Group links -->
-      <a href="/groups/<%= group.id %>/about">About</a>
-      <a href="/groups/<%= group.id %>/leave">Leave Group</a>
+    <div class="links">
+      <% if (locals.groupName && locals.isMember) { %>
+        <!-- Group links -->
+        <div class="sidenav">
+          <a href="/groups/<%= group.id %>/about">About</a>
+          <a href="/groups/<%= group.id %>/leave">Leave Group</a>
 
-    <% }  else if (locals.user) { %>
-      <!-- logged-in user -->
-      <a href="/users/profile">Profile</a>
-      <a href="/groups">Groups</a>
-      <a href="/groups/create">Create Group</a>
-      <a href="/users/settings">Settings</a>
-      <a href="/logout">Logout</a>
+          <button class="close-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      <% }  else if (locals.user) { %>
+        <div class="sidenav">
+          <!-- logged-in user -->
+          <a href="/users/profile">Profile</a>
+          <a href="/groups">Groups</a>
+          <a href="/groups/create">Create Group</a>
+          <a href="/users/settings">Settings</a>
+          <a href="/logout">Logout</a>
 
-    <% } else if (locals.path === '/') { %>
-      <!-- guest user -->
-      <a class='login-btn' href="/login">Login</a>
-      <a class='signup-btn' href="/signup">Sign Up</a>
+          <button class="close-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      <% } else if (locals.path === '/') { %>
+        <!-- guest user -->
+        <!-- menu icon -->
+        <a class='login-btn' href="/login">Login</a>
+        <a class='signup-btn' href="/signup">Sign Up</a>
+      <% } %>
+    </div>
+
+    <% if (locals.user) { %>
+      <div class="menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </div>
     <% } %>
   </div>
 </nav>

@@ -57,6 +57,12 @@ main {
 }
 
 .right-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.right-nav .links {
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -72,6 +78,56 @@ main {
 .signup-btn:hover {
   background-color: hsl(0 0 20);
 }
+
+/*
+    side nav form mobiles
+*/
+
+.sidenav {
+  padding-top: 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: hsl(0 0 15);
+  transform: translateX(-100%);
+  transition: transform 0.25s ease-out;
+}
+
+.sidenav.active {
+  transform: translateX(0);
+  transition: transform 0.25s ease-in;
+}
+
+.sidenav a {
+  padding: 1em;
+  width: 300px;
+  display: block;
+}
+
+.sidenav a:hover {
+  background-color: hsl(0 0 10);
+}
+
+.right-nav .menu-btn {
+  display: flex;
+  align-items: center;
+}
+
+.sidenav .close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  border: none;
+  padding: 0.5em;
+}
+
+.sidenav .close-btn:hover,
+.sidenav .close-btn:active {
+  background-color: hsl(0 0 10);
+}
+
 /*
     Sign up form style
     :- Login form has class name sign up

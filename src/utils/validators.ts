@@ -1,19 +1,29 @@
 import { body, type CustomValidator } from 'express-validator';
 import * as db from '@/models/db-queries';
+import type { Request } from 'express';
 
 // User data Validation
 
-const isUsernameTaken: CustomValidator = async (username) => {
+const isUsernameTaken: CustomValidator = async (username, meta) => {
   const user = await db.users.getUserByUsername(username);
+  const req = meta.req as Request;
   if (user) {
-    throw new Error('Username already taken');
+    // determining if user updating profile
+    if (!req.user || req.user.id !== user.id) {
+      throw new Error('Username already taken');
+    }
   }
 };
 
-const isEmailExist: CustomValidator = async (email) => {
+const isEmailExist: CustomValidator = async (email, meta) => {
   const user = await db.users.getUserByEmail(email);
+  const req = meta.req as Request;
+
   if (user) {
-    throw new Error('Email already exist');
+    // determining if user updating profile
+    if (!req.user || req.user.id !== user.id) {
+      throw new Error('Email already exist');
+    }
   }
 };
 

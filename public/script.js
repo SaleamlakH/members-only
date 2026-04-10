@@ -72,6 +72,12 @@ passwordForm.addEventListener('submit', async (e) => {
       inputs.forEach((input) => (input.value = ''));
     }
 
+    // current password is not correct
+    if (response.status === 401) {
+      const authError = passwordForm.querySelector('.auth-error');
+      authError.textContent = 'Incorrect current password';
+    }
+
     // display validation errors
     if (response.status === 400) {
       const { errors } = await response.json();

@@ -1,4 +1,5 @@
 import { body, type CustomValidator } from 'express-validator';
+import bcrypt from 'bcryptjs';
 import * as db from '@/models/db-queries';
 import type { Request } from 'express';
 
@@ -50,14 +51,30 @@ const userDataValidators = {
     .trim()
     .custom((value, { req }) => {
       if (value !== req.body.password) {
-        throw 'Confirm password must match password';
+        throw new Error('Confirm password must match password');
+      }
+
+      return true;
+    }),
+
+  currentPassword: body('current_password')
+    .trim()
+    .custom(async (current_password, meta) => {
+      const req = meta.req as Request;
+
+      const user = await db.users.getUserById(req.user!.id);
+      const match = await bcrypt.compare(current_password, user!.password);
+
+      if (!match) {
+        throw new Error('Incorrect password');
       }
     }),
 };
 
-export const signUpValidator = Object.values(userDataValidators);
+// filter validators
+const { currentPassword, ...signup } = userDataValidators;
+const { username, email, ...passwordValidators } = userDataValidators;
+
+export const signUpValidator = Object.values(signup);
 export const profileUpdateValidator = [userDataValidators.username, userDataValidators.email];
-export const passwordUpdateValidator = [
-  userDataValidators.password,
-  userDataValidators.confirmPassword,
-];
+export const passwordUpdateValidator = Object.values(passwordValidators);

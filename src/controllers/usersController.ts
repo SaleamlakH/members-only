@@ -65,9 +65,13 @@ const usersPasswordChange = [
     if (!errors.isEmpty()) {
       const validationErrors = mapValidationErrors(errors);
 
-      // embed errors to the form
+      // incorrect current password
+      if (validationErrors['current_password']) {
+        res.status(401).send();
+        return;
+      }
+
       res.status(400).json({ errors: validationErrors });
-      // res.status(400).render(`users/${req.user!.id}/setting`);
       return;
     }
 
@@ -77,8 +81,8 @@ const usersPasswordChange = [
       const hashedPassword = await bcrypt.hash(password, 10);
       await db.users.updatePassword({ id: req.user!.id, password: hashedPassword });
 
-      // redirect with notification
-      res.redirect('users/settings');
+      // send ok
+      res.status(200).send();
     } catch (error) {
       next(error);
     }

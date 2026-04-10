@@ -26,9 +26,8 @@ const usersProfileUpdate = [
     if (!errors.isEmpty()) {
       const validationErrors = mapValidationErrors(errors);
 
-      // render the update form
-      res.status(400).json({ validationErrors });
-      // res.status(400).render('users-setting', { errors: validationErrors });
+      // send the json response
+      res.status(400).json({ data: req.body, errors: validationErrors });
       return;
     }
 
@@ -36,8 +35,8 @@ const usersProfileUpdate = [
       const { username, email } = matchedData(req);
       await db.users.updateProfileInfo({ id: req.user!.id, username, email });
 
-      // redirect to profile settings
-      res.redirect('/users/settings');
+      // send success status
+      res.status(200).send();
     } catch (error) {
       next(error);
     }

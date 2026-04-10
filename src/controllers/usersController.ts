@@ -19,6 +19,21 @@ const usersGet = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+// get user setting
+const usersSettingsGet = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await db.users.getUserById(req.user!.id);
+    const profile = {
+      username: user?.username,
+      email: user?.email,
+    };
+
+    res.render('pages/settings', { title: 'Settings', profile });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const usersProfileUpdate = [
   profileUpdateValidator,
   async (req: Request, res: Response, next: NextFunction) => {
@@ -87,4 +102,4 @@ const usersDeleteAccount = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export { usersGet, usersProfileUpdate, usersPasswordChange, usersDeleteAccount };
+export { usersGet, usersSettingsGet, usersProfileUpdate, usersPasswordChange, usersDeleteAccount };

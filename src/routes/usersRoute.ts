@@ -1,4 +1,4 @@
-import { Router, type NextFunction, type Request, type Response } from 'express';
+import { Router } from 'express';
 import * as userController from '@/controllers/usersController';
 
 const usersRouter = Router();
@@ -12,9 +12,7 @@ usersRouter.put('/settings/profile', ...userController.usersProfileUpdate);
 // change password
 usersRouter.put('/settings/password', ...userController.usersPasswordChange);
 
-usersRouter.get('/settings', (req: Request, res: Response, next: NextFunction) => {
-  res.render('pages/settings', { title: 'Settings' });
-});
+usersRouter.get('/settings', userController.usersSettingsGet);
 
 // delete account
 usersRouter.delete('/settings', userController.usersDeleteAccount);

@@ -27,14 +27,20 @@
             <textarea name="message" id="message" placeholder="What is in you mind?"></textarea>
             <button class="post-btn">Post</button>
           </form>
+          <% } %>
         </div>
-      <% } %>
     </header>
 
     <main>
       <!-- messages -->
-      <% if (group.messages) { %>
-  
+      <h2 class="title">Messages</h2>
+      <% if (messages.length) { %>
+        <% messages.forEach(message => { %>
+          <article class="message-post">
+            <div class="author"><%= message.author || 'anonymous' %></div>
+            <div class="content"><%= message.content %></div>
+          </article>
+        <% }) %>
       <% } else { %>
         <div class="no-messages">No messages in this group. <br> Be the first to post.</div>
       <% } %>

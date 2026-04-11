@@ -357,7 +357,38 @@ uses signup style
   padding: 0.5em;
 }
 
+/*
+  Posted messages
+*/
+.title {
+  color: hsl(0 0 95);
+  font-size: large;
+  font-weight: 700;
+}
+
+.message-post {
+  border: 1px solid hsl(0 0 70 / 0.7);
+  border-radius: 15px;
+  padding: 0.5em;
+  color: hsl(0 0 95);
+  margin: 0.5em;
+}
+
+.message-post .content {
+  margin: 0.5em 0;
+}
+
+.message-post .author {
+  color: hsl(59 100 50);
+  font-weight: 700;
+}
+
+.message-post .author::before {
+  content: '@ ';
+}
+
 .no-messages {
   color: hsl(0 0 90);
   text-align: center;
 }
+ 

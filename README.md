@@ -77,6 +77,7 @@ Follows MVC architecture:
 - POST /signup - Create a new account
 - GET /login - render login form
 - POST /login - Authenticate user
+- GET /logout - logout a user and redirect to home
 
 ### Users
 

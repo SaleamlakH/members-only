@@ -312,3 +312,52 @@ uses signup style
   text-decoration: none;
   font-weight: 700;
 }
+
+/*
+  Group message posting form
+*/
+
+.message-form {
+  color: hsl(0 0 95);
+  border: 1px solid hsl(0 0 70 / 0.7);
+  border-radius: 15px;
+  margin: 1em 0.5em;
+  padding: 0.5em;
+}
+
+.message-form .header {
+  border-bottom: 1px solid hsl(0 0 70 / 0.7);
+  padding: 0.5em;
+}
+
+.message-form .username {
+  color: hsl(59 100 50);
+  font-weight: 700;
+}
+
+.message-form .username::before {
+  content: '@ ';
+}
+
+.message-form .post-btn {
+  border: 1px solid hsl(0 0 85);
+  border-radius: 10px;
+  padding: 0.5em 1.5em;
+  margin-left: auto;
+  display: block;
+}
+
+.message-form textarea {
+  width: 100%;
+  border: none;
+  margin: 0.5em 0;
+  line-height: 1.5;
+  field-sizing: content;
+  min-height: 3em;
+  padding: 0.5em;
+}
+
+.no-messages {
+  color: hsl(0 0 90);
+  text-align: center;
+}

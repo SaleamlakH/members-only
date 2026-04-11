@@ -110,8 +110,7 @@ const groupGet = async (req: Request, res: Response, next: NextFunction) => {
       : await db.groupMessages.getGroupMessages(Number(groupId));
 
     // render group page
-    res.status(200).json({ group, messages });
-    // res.status(200).render('group', { group, messages});
+    res.render('pages/group', { title: group?.name, user: req.user, group, messages, isMember });
   } catch (error) {
     next(error);
   }

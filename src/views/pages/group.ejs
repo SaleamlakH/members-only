@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <base href="/">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <!-- navigation bar -->
+    <%- include('../components/navbar', { pageHeader: group.name}) %>
+
+    <!-- show about and join button -->
+    <header>
+      <% if (!isMember) { %>
+        <div class="group list-item">
+          <div class="name"><%= group.name %></div>
+          <a href="/groups/<%= group.id %>/join">Join</a>
+        </div>  
+      <% } else { %>
+        <div class="write-message">
+          <form class="message-form" action="/groups/<%= group.id %>" method="post">
+            <div class="username"><%= user.username %></div>
+
+            <textarea name="message" id="message" placeholder="What is in you mind?"></textarea>
+            <button class="post-btn">Post</button>
+          </form>
+        </div>
+      <% } %>
+    </header>
+
+    <main>
+      <!-- messages -->
+      <% if (group.messages) { %>
+  
+      <% } else { %>
+        <div class="no-messages">No messages in this group. <br> Be the first to post.</div>
+      <% } %>
+    </main>
+  </body>
+</html>

@@ -221,3 +221,59 @@ uses signup style
   display: block;
   width: 100%;
 }
+
+/*
+  Create group form
+*/
+
+.create-group-form {
+  color: hsl(0 0 95);
+  border: 1px solid hsl(0 0 90 / 0.9);
+  border-radius: 15px;
+  padding: 0 1em 1em;
+  margin: 3em 1em;
+  width: 90%;
+  max-width: 350px;
+}
+
+.create-group-form h2 {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.create-group-form .rows {
+  margin: 0.5em 0;
+}
+
+.create-group-form input,
+.create-group-form textarea {
+  border: 1px solid hsl(0 0 70 / 0.7);
+  border-radius: 10px;
+  display: block;
+  padding: 0.5em;
+  margin: 0.3em 0;
+  width: 100%;
+}
+
+.create-group-form textarea {
+  min-height: 5em;
+  line-height: 1.5;
+  field-sizing: content;
+}
+
+.create-group-form button {
+  padding: 0.5em;
+  border: 1px solid hsl(0 0 75);
+  border-radius: 0.5em;
+  margin-top: 1em;
+  width: 100%;
+}
+
+.create-group-form button:hover,
+.create-group-form button:active {
+  background-color: hsl(0 0 15);
+}
+
+.create-group-form .error {
+  color: hsl(0 100 65);
+}

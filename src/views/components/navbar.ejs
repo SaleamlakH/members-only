@@ -18,7 +18,14 @@
           <!-- logged-in user -->
           <% if (locals.group && locals.isMember) { %>
             <a href="/groups/<%= group.id %>/about">About</a>
-            <a href="/groups/<%= group.id %>/leave">Leave Group</a>
+
+            <% if (isOwner) { %>
+              <!-- Owner only -->
+              <a href="/groups/<%= group.id %>/delete">Delete Group</a>
+            <% } else { %>
+              <!-- members only, not including owner -->
+              <a href="/groups/<%= group.id %>/leave">Leave Group</a>
+            <% } %>
 
           <% } else { %>
             <a href="/users/profile">Profile</a>

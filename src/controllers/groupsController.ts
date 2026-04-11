@@ -64,6 +64,10 @@ const groupGet = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const group = await db.groups.getGroupById(Number(groupId));
 
+    // type and database inconsistency
+    const { owner_id: ownerId } = group as any;
+    const isOwner = req.user ? req.user.id === ownerId : false;
+
     const isMember = req.user
       ? (await db.groupMembers.isMember({ userId: req.user.id, groupId: Number(groupId) })) === 1
       : false;
@@ -73,7 +77,14 @@ const groupGet = async (req: Request, res: Response, next: NextFunction) => {
       : await db.groupMessages.getGroupMessages(Number(groupId));
 
     // render group page
-    res.render('pages/group', { title: group?.name, user: req.user, group, messages, isMember });
+    res.render('pages/group', {
+      title: group?.name,
+      user: req.user,
+      group,
+      messages,
+      isMember,
+      isOwner,
+    });
   } catch (error) {
     next(error);
   }

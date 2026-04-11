@@ -20,6 +20,8 @@ groupsRouter.post('/:groupId', ...groupsController.groupsMessagePost);
 // get group page
 groupsRouter.get('/:groupId', groupsController.groupGet);
 
-groupsRouter.get('/:groupId/join', groupsController.joinGroup)
+groupsRouter.get('/:groupId/join', groupsController.joinGroup);
+
+groupsRouter.get('/:groupId/leave', groupsController.leaveGroup)
 
 export default groupsRouter;

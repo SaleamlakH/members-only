@@ -1,18 +1,18 @@
-import { Router } from 'express';
+import { Router, type NextFunction, type Request, type Response } from 'express';
 import * as groupsController from '@/controllers/groupsController';
 
-// /
-// /create
-// /:id
-// /about
-
 const groupsRouter = Router();
+
+// get group creation form
+groupsRouter.get('/create', (req: Request, res: Response, next: NextFunction) => {
+  res.render('pages/create-group', { title: 'Create Group', user: req.user!.id });
+});
 
 // create new group
 groupsRouter.post('/create', ...groupsController.groupsCreatePost);
 
 // post message
-groupsRouter.post("/:groupId", ...groupsController.groupsMessagePost)
+groupsRouter.post('/:groupId', ...groupsController.groupsMessagePost);
 
 // get group page
 groupsRouter.get('/:groupId', groupsController.groupGet);

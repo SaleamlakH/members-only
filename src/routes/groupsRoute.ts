@@ -22,6 +22,10 @@ groupsRouter.get('/:groupId', groupsController.groupGet);
 
 groupsRouter.get('/:groupId/join', groupsController.joinGroup);
 
-groupsRouter.get('/:groupId/leave', groupsController.leaveGroup)
+groupsRouter.get('/:groupId/leave', groupsController.leaveGroup);
+
+// delete group
+groupsRouter.get('/:groupId/delete', groupsController.deleteGroup);
+groupsRouter.delete('/:groupId', groupsController.deleteGroup);
 
 export default groupsRouter;

@@ -122,4 +122,31 @@ const leaveGroup = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { groupsCreatePost, groupsMessagePost, groupGet, getGroups, joinGroup, leaveGroup };
+const deleteGroup = async (req: Request, res: Response, next: NextFunction) => {
+  const { groupId } = req.params;
+
+  try {
+    const group = await db.groups.getGroupById(Number(groupId));
+    const { owner_id } = group as any;
+
+    if (owner_id === req.user!.id) {
+      await db.groups.deleteGroup(Number(groupId));
+      res.redirect('/groups');
+      return;
+    }
+
+    res.redirect(`/groups/${groupId}`);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export {
+  groupsCreatePost,
+  groupsMessagePost,
+  groupGet,
+  getGroups,
+  joinGroup,
+  leaveGroup,
+  deleteGroup,
+};

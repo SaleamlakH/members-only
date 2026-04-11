@@ -1,5 +1,5 @@
 import path from 'path';
-import express from 'express';
+import express, { type NextFunction, type Request, type Response } from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
@@ -77,6 +77,16 @@ app.use('/login', loginRouter);
 app.use('/groups', groupsRouter);
 
 app.use('/users', usersRouter);
+
+app.use('/logout', (req: Request, res: Response, next: NextFunction) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+
+    res.redirect('/');
+  });
+});
 
 app.get('/', homeRouter);
 

@@ -7,14 +7,8 @@
   </div>
 
   <!-- page title -->
-  <div>
-      <% if (locals.group) { %>
-          <h1><%= groupName %></h1>
-      <% } else if (locals.profile) { %>
-          <h1>Profile</h1>
-      <% } else if (locals.setting) { %>
-          <h1>Settings</h1>
-      <% } %>
+  <div class="page-header">
+      <h1><%= locals.pageHeader %></h1>
   </div>
 
   <div class="right-nav">

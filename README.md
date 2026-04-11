@@ -91,13 +91,24 @@ All user routes require authentication. The user is resolved from the session.
 
 ### Groups
 
-Creating groups and posting messages require authentication.
+Creating routes require authentication.
 
 - GET /groups - view all group lists
 - GET /groups/create - render form to create group
 - POST /groups/create - Create a new group
 - GET /groups/:groupId - View a group
 - POST /groups/:groupId - Post a message to a group
+- GET /groups/:groupId/join - join a group
+- GET /groups/:groupId/leave - leave a group
+- DELETE /groups/:groupId - delete message
+- GET /groups/:groupId/delete - delete message
+
+### Messages
+
+Only owners and author have permission
+
+- DELETE /messages/:messageId - delete message
+- GET /messages/:messageId/delete - delete message
 
 ## Database Schema
 

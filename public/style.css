@@ -314,6 +314,20 @@ uses signup style
 }
 
 /*
+  Group page
+*/
+
+.group-header {
+  display: flex;
+  justify-content: center;
+}
+
+.group-header .write-message {
+  width: 100%;
+  max-width: 350px;
+}
+
+/*
   Group message posting form
 */
 
@@ -391,4 +405,3 @@ uses signup style
   color: hsl(0 0 90);
   text-align: center;
 }
- 

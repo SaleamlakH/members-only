@@ -78,3 +78,35 @@ const { username, email, ...passwordValidators } = userDataValidators;
 export const signUpValidator = Object.values(signup);
 export const profileUpdateValidator = [userDataValidators.username, userDataValidators.email];
 export const passwordUpdateValidator = Object.values(passwordValidators);
+
+// Group and message validators
+const isGroupNameTaken = async (name: string) => {
+  const group = await db.groups.getGroupByName(name);
+  if (group) {
+    throw new Error('Group name is already taken');
+  }
+};
+
+export const createGroupValidator = [
+  body('name')
+    .trim()
+    .notEmpty()
+    .withMessage('Group name is required')
+    .isLength({ min: 3 })
+    .withMessage('Group name must be at least 3 characters')
+    .custom(isGroupNameTaken),
+  body('about')
+    .optional(true)
+    .trim()
+    .isLength({ max: 255 })
+    .withMessage('About must be less than 255 characters'),
+];
+
+export const messagePostValidator = [
+  body('message')
+    .trim()
+    .notEmpty()
+    .withMessage('Message is required')
+    .isLength({ max: 255 })
+    .withMessage('Message must be lower than 255 characters'),
+];

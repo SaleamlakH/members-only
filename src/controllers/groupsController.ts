@@ -1,29 +1,8 @@
 import type { NextFunction, Request, Response } from 'express';
-import { body, validationResult, matchedData } from 'express-validator';
+import { validationResult, matchedData } from 'express-validator';
 import * as db from '@/models/db-queries';
 import mapValidationErrors from '@/utils/mapValidationErrors';
-
-const isGroupNameTaken = async (name: string) => {
-  const group = await db.groups.getGroupByName(name);
-  if (group) {
-    throw new Error('Group name is already taken');
-  }
-};
-
-const createGroupValidator = [
-  body('name')
-    .trim()
-    .notEmpty()
-    .withMessage('Group name is required')
-    .isLength({ min: 3 })
-    .withMessage('Group name must be at least 3 characters')
-    .custom(isGroupNameTaken),
-  body('about')
-    .optional(true)
-    .trim()
-    .isLength({ max: 255 })
-    .withMessage('About must be less than 255 characters'),
-];
+import { createGroupValidator, messagePostValidator } from '@/utils/validators';
 
 const groupsCreatePost = [
   createGroupValidator,
@@ -48,15 +27,6 @@ const groupsCreatePost = [
     res.status(200).json({ group });
     // res.redirect(`/groups/${group.id}`);
   },
-];
-
-const messagePostValidator = [
-  body('message')
-    .trim()
-    .notEmpty()
-    .withMessage('Message is required')
-    .isLength({ max: 255 })
-    .withMessage('Message must be lower than 255 characters'),
 ];
 
 const groupsMessagePost = [

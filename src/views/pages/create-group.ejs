@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <base href="/" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <%- include('../components/navbar') %>
+
+    <main>
+      <form class="create-group-form" action="/groups/create" method="POST">
+        <h2>Create Group</h2>
+
+        <div class="rows">
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" value="<%= locals.data?.name %>" />
+          <div class="error"><%= locals.errors?.name?.message %></div>
+        </div>
+
+        <div class="rows">
+          <label for="about">About</label>
+          <textarea name="about" id="about" value="<%= locals.data?.about %>"></textarea>
+          <div class="error"><%= locals.errors?.about?.message %></div>
+        </div>
+
+        <button>Create Group</button>
+      </form>
+    </main>
+  </body>
+</html>

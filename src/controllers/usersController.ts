@@ -28,7 +28,7 @@ const usersSettingsGet = async (req: Request, res: Response, next: NextFunction)
       email: user?.email,
     };
 
-    res.render('pages/settings', { title: 'Settings', profile });
+    res.render('pages/settings', { title: 'Settings', user: req.user, profile });
   } catch (error) {
     next(error);
   }

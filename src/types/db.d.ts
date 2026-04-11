@@ -24,14 +24,13 @@ export type GroupUpdate = Pick<Groups, 'id' | 'name' | 'about'>;
 
 export interface Messages {
   id: number;
-  title: string;
   content: string;
   postedAt: Date;
   authorId: number;
 }
 
-export type MessageCreate = Pick<Messages, 'title' | 'content' | 'authorId'>;
-export type MessageUpdate = Pick<Messages, 'id' | 'title' | 'content'>;
+export type MessageCreate = Pick<Messages, 'content' | 'authorId'>;
+export type MessageUpdate = Pick<Messages, 'id' | 'content'>;
 
 export interface UserGroupRelation {
   userId: number;

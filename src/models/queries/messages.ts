@@ -5,16 +5,16 @@ import type { MessageCreate, Messages, MessageUpdate } from '@/types/db';
 const table = 'messages';
 
 const createMessage = async (
-  { title, content, authorId }: MessageCreate,
+  { content, authorId }: MessageCreate,
   client?: PoolClient,
 ): Promise<Messages> => {
   const dbClient = client || pool;
   const { rows } = await dbClient.query(
     `
-    INSERT INTO ${table} (title, content, author_id) 
-    VALUES ($1, $2, $3)
+    INSERT INTO ${table} (content, author_id) 
+    VALUES ($1, $2)
     RETURNING *;`,
-    [title, content, authorId],
+    [content, authorId],
   );
 
   return rows[0];
@@ -32,12 +32,8 @@ const getMessageByAuthor = async (
   return rows[0];
 };
 
-const updateMessage = async ({ id, title, content }: MessageUpdate) => {
-  return pool.query(`UPDATE ${table} SET title = $1, content = $2 WHERE id = $3;`, [
-    title,
-    content,
-    id,
-  ]);
+const updateMessage = async ({ id, content }: MessageUpdate) => {
+  return pool.query(`UPDATE ${table} SET content = $1 WHERE id = $2;`, [content, id]);
 };
 
 const deleteMessage = async (id: Messages['id']) => {

@@ -29,18 +29,13 @@ const createGroup = async ({ name, ownerId, about }: GroupCreate) => {
 };
 
 // create a message and store group id and returned message id
-const createGroupMessage = async ({
-  title,
-  content,
-  authorId,
-  groupId,
-}: MessageGroupTransaction) => {
+const createGroupMessage = async ({ content, authorId, groupId }: MessageGroupTransaction) => {
   const client = await pool.connect();
   try {
     await client.query('BEGIN;'); // start transaction
 
     // store message in messages table
-    const message = await db.messages.createMessage({ title, content, authorId }, client);
+    const message = await db.messages.createMessage({ content, authorId }, client);
 
     // store groupId and messageId in group_messages table
     await db.groupMessages.addGroupAndMessageIds({ groupId, messageId: message.id }, client);

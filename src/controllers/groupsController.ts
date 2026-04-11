@@ -51,18 +51,12 @@ const groupsCreatePost = [
 ];
 
 const messagePostValidator = [
-  body('title')
+  body('message')
     .trim()
     .notEmpty()
-    .withMessage('Title is required')
+    .withMessage('Message is required')
     .isLength({ max: 255 })
-    .withMessage('Title must be lower than 255 characters'),
-  body('content')
-    .trim()
-    .notEmpty()
-    .withMessage('Content is required')
-    .isLength({ max: 255 })
-    .withMessage('Content must be lower than 255 characters'),
+    .withMessage('Message must be lower than 255 characters'),
 ];
 
 const groupsMessagePost = [
@@ -79,10 +73,9 @@ const groupsMessagePost = [
 
     try {
       // insert into database
-      const { title, content } = matchedData(req);
+      const { message } = matchedData(req);
       await db.transaction.createGroupMessage({
-        title,
-        content,
+        content: message,
         authorId: req.user!.id,
         groupId: +groupId!,
       });

@@ -33,8 +33,11 @@ const groupsCreatePost = [
       const validationErrors = mapValidationErrors(errors);
 
       // embed errors to the group creating form
-      res.status(400).json(validationErrors);
-      // res.status(400).render('group-create-from', {errors: validationErrors})
+      res.status(400).render('pages/create-group', {
+        title: 'Create Group',
+        data: req.body,
+        errors: validationErrors,
+      });
       return;
     }
 

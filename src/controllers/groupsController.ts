@@ -117,4 +117,13 @@ const groupGet = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { groupsCreatePost, groupsMessagePost, groupGet };
+const getGroups = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const groups = await db.groups.getAllGroups();
+    res.render('pages/groups-list', { title: 'Groups', groups: groups, user: req.user!.id });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { groupsCreatePost, groupsMessagePost, groupGet, getGroups };

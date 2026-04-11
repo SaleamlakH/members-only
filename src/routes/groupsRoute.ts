@@ -3,6 +3,9 @@ import * as groupsController from '@/controllers/groupsController';
 
 const groupsRouter = Router();
 
+// get group lists
+groupsRouter.get('/', groupsController.getGroups);
+
 // get group creation form
 groupsRouter.get('/create', (req: Request, res: Response, next: NextFunction) => {
   res.render('pages/create-group', { title: 'Create Group', user: req.user!.id });

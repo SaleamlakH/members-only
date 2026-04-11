@@ -28,6 +28,11 @@ const getGroupByName = async (name: Groups['name']): Promise<Groups | undefined>
   return rows[0];
 };
 
+const getAllGroups = async (): Promise<Groups[]> => {
+  const { rows } = await pool.query('SELECT * FROM groups;');
+  return rows;
+};
+
 const updateGroup = async ({ id, name, about }: GroupUpdate) => {
   return pool.query('UPDATE groups SET name = $1, about = $2 WHERE id = $3;', [name, about, id]);
 };
@@ -36,4 +41,4 @@ const deleteGroup = async (id: Groups['id']) => {
   return pool.query('DELETE FROM groups WHERE id = $1;', [id]);
 };
 
-export { createGroup, getGroupById, getGroupByName, updateGroup, deleteGroup };
+export { createGroup, getGroupById, getGroupByName, getAllGroups, updateGroup, deleteGroup };

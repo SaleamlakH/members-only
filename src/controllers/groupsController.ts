@@ -88,4 +88,15 @@ const getGroups = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { groupsCreatePost, groupsMessagePost, groupGet, getGroups };
+const joinGroup = async (req: Request, res: Response, next: NextFunction) => {
+  const { groupId } = req.params;
+
+  try {
+    await db.groupMembers.addMember({ userId: req.user!.id, groupId: Number(groupId) });
+    res.redirect(`/groups/${groupId}`);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { groupsCreatePost, groupsMessagePost, groupGet, getGroups, joinGroup };

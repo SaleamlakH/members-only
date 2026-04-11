@@ -18,7 +18,6 @@ For full column types, constraints, and relationships, refer to [populate.ts](po
 ### messages
 
 - id
-- title
 - content
 - posted_at
 - updated_at

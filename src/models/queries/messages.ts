@@ -25,11 +25,11 @@ const getMessageById = async (id: Messages['id']): Promise<Messages | undefined>
   return rows[0];
 };
 
-const getMessageByAuthor = async (
+const getMessagesByAuthor = async (
   authorId: Messages['authorId'],
-): Promise<Messages | undefined> => {
+): Promise<Messages[]> => {
   const { rows } = await pool.query(`SELECT * FROM ${table} WHERE author_id = $1;`, [authorId]);
-  return rows[0];
+  return rows;
 };
 
 const updateMessage = async ({ id, content }: MessageUpdate) => {
@@ -41,4 +41,4 @@ const deleteMessage = async (id: Messages['id'], client?: PoolClient) => {
   return dbClient.query(`DELETE FROM ${table} WHERE id = $1;`, [id]);
 };
 
-export { createMessage, getMessageById, getMessageByAuthor, updateMessage, deleteMessage };
+export { createMessage, getMessageById, getMessagesByAuthor, updateMessage, deleteMessage };

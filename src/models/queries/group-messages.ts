@@ -40,6 +40,25 @@ const getGroupMessagesWithAuthor = async (
   return rows;
 };
 
+const getGroupMessagesByAuthor = async ({
+  authorId,
+  groupId,
+}: {
+  authorId: Messages['authorId'];
+  groupId: MessageGroupRelation['groupId'];
+}): Promise<Messages[]> => {
+  const { rows } = await pool.query(
+    `
+    SELECT * FROM messages 
+    WHERE id IN (
+    SELECT message_id FROM group_messages WHERE group_id = $1)
+    AND author_id = $2`,
+    [groupId, authorId],
+  );
+
+  return rows;
+};
+
 const deleteGroupMessage = async (
   messageId: MessageGroupRelation['messageId'],
   client?: PoolClient,
@@ -48,4 +67,10 @@ const deleteGroupMessage = async (
   return dbClient.query('DELETE FROM group_messages WHERE message_id = $1', [messageId]);
 };
 
-export { addGroupAndMessageIds, getGroupMessages, getGroupMessagesWithAuthor, deleteGroupMessage };
+export {
+  addGroupAndMessageIds,
+  getGroupMessages,
+  getGroupMessagesWithAuthor,
+  getGroupMessagesByAuthor,
+  deleteGroupMessage,
+};

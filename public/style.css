@@ -97,6 +97,7 @@ main {
 .sidenav {
   padding-top: 30px;
   position: fixed;
+  z-index: 1;
   top: 0;
   left: 0;
   height: 100vh;
@@ -413,4 +414,24 @@ uses signup style
   right: 0;
   border: none;
   border-radius: 20px;
+}
+
+/* Profile */
+.owned-groups,
+.joined-groups {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-header {
+  color: hsl(0 0 95);
+  font-weight: 700;
+  font-size: large;
+  text-align: center;
+}
+
+.profile-messages {
+  position:relative;
+  z-index: -1;
 }

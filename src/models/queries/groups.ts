@@ -33,6 +33,18 @@ const getGroupsByOwner = async (ownerId: Groups['ownerId']): Promise<Groups[]> =
   return rows;
 };
 
+const getAllGroupsOfMember = async (userId: UserGroupRelation['userId']): Promise<Groups[]> => {
+  const { rows } = await pool.query(
+    `
+    SELECT * FROM groups
+    WHERE id IN(
+      SELECT group_id FROM group_members WHERE user_id = $1
+    ) And owner_id != $1`,
+    [userId],
+  );
+  return rows;
+};
+
 const getAllGroups = async (): Promise<Groups[]> => {
   const { rows } = await pool.query('SELECT * FROM groups;');
   return rows;
@@ -51,6 +63,7 @@ export {
   getGroupById,
   getGroupByName,
   getGroupsByOwner,
+  getAllGroupsOfMember,
   getAllGroups,
   updateGroup,
   deleteGroup,

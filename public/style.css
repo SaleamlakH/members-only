@@ -12,6 +12,9 @@ body {
   font-size: 1rem;
   margin: 0;
   padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
@@ -432,6 +435,37 @@ uses signup style
 }
 
 .profile-messages {
-  position:relative;
+  position: relative;
   z-index: -1;
+}
+
+/*
+  Footer
+*/
+
+footer {
+  color: hsl(0 0 85);
+  padding: 1em;
+  border-top: 1px solid hsl(0 0 20);
+  margin-top: auto;
+}
+
+footer .description {
+  margin: 1em 0;
+  max-width: 350px;
+}
+
+footer .logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+footer .logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+footer .logo img {
+  width: 2rem;
 }

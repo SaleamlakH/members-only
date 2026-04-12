@@ -9,11 +9,35 @@ import mapValidationErrors from '@/utils/mapValidationErrors';
 const usersGet = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await db.users.getUserById(req.user!.id);
-    const messages = await db.messages.getMessageByAuthor(req.user!.id);
+    const ownedGroups = await db.groups.getGroupsByOwner(user!.id);
+    const joinedGroups = await db.groups.getAllGroupsOfMember(user!.id);
+    const groups = { owned: ownedGroups, joined: joinedGroups };
 
-    // render user
-    res.status(200).json({ messages, username: user?.username });
-    // res.render('user', { messages, username: user?.username });
+    // get all messages of a user from fetched groups
+    const messages = await [...ownedGroups, ...joinedGroups].reduce(
+      async (extendedMessages, group) => {
+        const groupMessages = await db.groupMessages.getGroupMessagesByAuthor({
+          authorId: user!.id,
+          groupId: group.id,
+        });
+
+        const { name, id } = group;
+        // extend message to include group name and id
+
+        extendedMessages = [
+          ...(await extendedMessages),
+          ...groupMessages.map((message) => {
+            return { ...message, group: { name, id } };
+          }),
+        ];
+
+        return extendedMessages;
+      },
+      [] as any,
+    );
+
+    // render user profile
+    res.render('pages/profile', { title: `Profile| ${user?.username}`, user, groups, messages });
   } catch (error) {
     next(error);
   }

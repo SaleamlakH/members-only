@@ -40,4 +40,12 @@ const getGroupMessagesWithAuthor = async (
   return rows;
 };
 
-export { addGroupAndMessageIds, getGroupMessages, getGroupMessagesWithAuthor };
+const deleteGroupMessage = async (
+  messageId: MessageGroupRelation['messageId'],
+  client?: PoolClient,
+) => {
+  const dbClient = client || pool;
+  return dbClient.query('DELETE FROM group_messages WHERE message_id = $1', [messageId]);
+};
+
+export { addGroupAndMessageIds, getGroupMessages, getGroupMessagesWithAuthor, deleteGroupMessage };

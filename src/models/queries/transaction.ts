@@ -1,5 +1,5 @@
 import * as db from '@/models/db-queries';
-import type { GroupCreate, MessageGroupTransaction } from '@/types/db';
+import type { GroupCreate, MessageGroupRelation, MessageGroupTransaction } from '@/types/db';
 import pool from '../pool';
 
 // create a message and store the ownerId and returned groupId
@@ -49,4 +49,18 @@ const createGroupMessage = async ({ content, authorId, groupId }: MessageGroupTr
   }
 };
 
-export { createGroupMessage, createGroup };
+const deleteGroupMessage = async (messageId: MessageGroupRelation['messageId']) => {
+  const client = await pool.connect();
+  
+  try {
+    await db.groupMessages.deleteGroupMessage(messageId, client);
+    await db.messages.deleteMessage(messageId, client);
+  } catch (error) {
+    await client.query('ROLLBACK;');
+    throw error;
+  } finally {
+    client.release();
+  }
+};
+
+export { createGroupMessage, deleteGroupMessage, createGroup };

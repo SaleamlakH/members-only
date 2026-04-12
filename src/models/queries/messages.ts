@@ -36,8 +36,9 @@ const updateMessage = async ({ id, content }: MessageUpdate) => {
   return pool.query(`UPDATE ${table} SET content = $1 WHERE id = $2;`, [content, id]);
 };
 
-const deleteMessage = async (id: Messages['id']) => {
-  return pool.query(`DELETE FROM ${table} WHERE id = $1;`, [id]);
+const deleteMessage = async (id: Messages['id'], client?: PoolClient) => {
+  const dbClient = client || pool;
+  return dbClient.query(`DELETE FROM ${table} WHERE id = $1;`, [id]);
 };
 
 export { createMessage, getMessageById, getMessageByAuthor, updateMessage, deleteMessage };

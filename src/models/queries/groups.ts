@@ -1,6 +1,6 @@
 import type { PoolClient } from 'pg';
 import pool from '../pool';
-import type { GroupCreate, Groups, GroupUpdate } from '@/types/db';
+import type { GroupCreate, Groups, GroupUpdate, UserGroupRelation } from '@/types/db';
 
 const createGroup = async (
   { name, ownerId, about }: GroupCreate,
@@ -28,6 +28,11 @@ const getGroupByName = async (name: Groups['name']): Promise<Groups | undefined>
   return rows[0];
 };
 
+const getGroupsByOwner = async (ownerId: Groups['ownerId']): Promise<Groups[]> => {
+  const { rows } = await pool.query('SELECT * FROM groups WHERE owner_id = $1', [ownerId]);
+  return rows;
+};
+
 const getAllGroups = async (): Promise<Groups[]> => {
   const { rows } = await pool.query('SELECT * FROM groups;');
   return rows;
@@ -41,4 +46,12 @@ const deleteGroup = async (id: Groups['id']) => {
   return pool.query('DELETE FROM groups WHERE id = $1;', [id]);
 };
 
-export { createGroup, getGroupById, getGroupByName, getAllGroups, updateGroup, deleteGroup };
+export {
+  createGroup,
+  getGroupById,
+  getGroupByName,
+  getGroupsByOwner,
+  getAllGroups,
+  updateGroup,
+  deleteGroup,
+};

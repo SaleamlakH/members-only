@@ -72,6 +72,10 @@ const groupGet = async (req: Request, res: Response, next: NextFunction) => {
       ? (await db.groupMembers.isMember({ userId: req.user.id, groupId: Number(groupId) })) === 1
       : false;
 
+    const isAdmin = req.user
+      ? await db.groupAdmins.isAdmin({ userId: req.user.id, groupId: Number(groupId) })
+      : false;
+
     const messages = isMember
       ? await db.groupMessages.getGroupMessagesWithAuthor(Number(groupId))
       : await db.groupMessages.getGroupMessages(Number(groupId));
@@ -84,6 +88,7 @@ const groupGet = async (req: Request, res: Response, next: NextFunction) => {
       messages,
       isMember,
       isOwner,
+      isAdmin,
     });
   } catch (error) {
     next(error);
@@ -141,6 +146,18 @@ const deleteGroup = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const deleteMessage = async (req: Request, res: Response, next: NextFunction) => {
+  const { groupId, messageId } = req.params;
+
+  try {
+    await db.transaction.deleteGroupMessage(Number(messageId));
+
+    res.redirect(`/groups/${groupId}`);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   groupsCreatePost,
   groupsMessagePost,
@@ -149,4 +166,5 @@ export {
   joinGroup,
   leaveGroup,
   deleteGroup,
+  deleteMessage,
 };

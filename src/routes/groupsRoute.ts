@@ -28,4 +28,8 @@ groupsRouter.get('/:groupId/leave', groupsController.leaveGroup);
 groupsRouter.get('/:groupId/delete', groupsController.deleteGroup);
 groupsRouter.delete('/:groupId', groupsController.deleteGroup);
 
+// delete groups message
+groupsRouter.get('/:groupId/messages/:messageId/delete', groupsController.deleteMessage);
+groupsRouter.delete('/:groupId/messages/:messageId', groupsController.deleteMessage);
+
 export default groupsRouter;

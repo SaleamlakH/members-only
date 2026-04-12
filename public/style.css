@@ -386,6 +386,7 @@ uses signup style
   padding: 0.5em;
   color: hsl(0 0 95);
   margin: 0.5em;
+  position: relative;
 }
 
 .message-post .content {
@@ -404,4 +405,12 @@ uses signup style
 .no-messages {
   color: hsl(0 0 90);
   text-align: center;
+}
+
+.message-delete-btn {
+  position: absolute;
+  top: 0.3em;
+  right: 0;
+  border: none;
+  border-radius: 20px;
 }
